@@ -3,20 +3,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package View;
+   import java.util.ArrayList;
+   import javax.swing.JOptionPane;
+   import javax.swing.JPasswordField;
+   import javax.swing.JTextField;
 
-/**
- *
- * @author user
- */
+
 public class ViewLogin extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ViewLogin.class.getName());
+   // Lista de usuarios registrados: cada uno es {nombre, correo, contraseña}
+   private static ArrayList<String[]> usuarios = new ArrayList<>();
 
-    /**
-     * Creates new form ViewLogin
-     */
+   {
+       // Usuario de prueba
+       usuarios.add(new String[]{"Admin", "admin@correo.com", "1234"});
+   }
     public ViewLogin() {
         initComponents();
+        setLocationRelativeTo(null);
+        getRootPane().setDefaultButton(btnIngresar);
+
     }
 
     /**
@@ -30,11 +37,11 @@ public class ViewLogin extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtCorreo = new javax.swing.JTextField();
+        txtContrasena = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnIngresar = new javax.swing.JButton();
+        btnRegistrar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -47,23 +54,24 @@ public class ViewLogin extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("Correo");
 
-        jTextField1.addActionListener(this::jTextField1ActionPerformed);
+        txtCorreo.addActionListener(this::txtCorreoActionPerformed);
 
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
         jLabel3.setText("Contraseña");
 
-        jButton1.setBackground(new java.awt.Color(51, 153, 255));
-        jButton1.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Ingresar");
+        btnIngresar.setBackground(new java.awt.Color(0, 102, 204));
+        btnIngresar.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
+        btnIngresar.setText("Ingresar");
+        btnIngresar.addActionListener(this::btnIngresarActionPerformed);
 
-        jButton2.setBackground(new java.awt.Color(51, 153, 255));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("¿Aun no eres afiliado? Registrate");
-        jButton2.setBorderPainted(false);
-        jButton2.addActionListener(this::jButton2ActionPerformed);
+        btnRegistrar.setBackground(new java.awt.Color(0, 102, 204));
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrar.setText("¿Aun no eres afiliado? Registrate");
+        btnRegistrar.setBorderPainted(false);
+        btnRegistrar.addActionListener(this::btnRegistrarActionPerformed);
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(51, 153, 255));
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -100,8 +108,8 @@ public class ViewLogin extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
-                            .addComponent(jTextField1))
+                            .addComponent(txtContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                            .addComponent(txtCorreo))
                         .addGap(172, 172, 172))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -109,12 +117,12 @@ public class ViewLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(304, 304, 304)
-                        .addComponent(jButton1))
+                        .addGap(235, 235, 235)
+                        .addComponent(btnRegistrar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(234, 234, 234)
-                        .addComponent(jButton2)))
-                .addContainerGap(240, Short.MAX_VALUE))
+                        .addGap(305, 305, 305)
+                        .addComponent(btnIngresar)))
+                .addContainerGap(239, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,29 +132,107 @@ public class ViewLogin extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnIngresar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnRegistrar)
                 .addContainerGap(83, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtCorreoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+    JTextField nombre = new JTextField();
+JTextField correo = new JTextField();
+JPasswordField pass = new JPasswordField();
+
+Object[] campos = {
+    "Nombre:", nombre,
+    "Correo:", correo,
+    "Contraseña:", pass
+};
+
+int opcion = JOptionPane.showConfirmDialog(this, campos,
+        "Registro de afiliado", JOptionPane.OK_CANCEL_OPTION);
+
+if (opcion != JOptionPane.OK_OPTION) {
+    return;
+}
+
+String n = nombre.getText().trim();
+String c = correo.getText().trim();
+String p = new String(pass.getPassword());
+
+if (n.isEmpty() || c.isEmpty() || p.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.",
+            "Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+if (!c.matches("^[\\w.+-]+@[\\w-]+(\\.[\\w-]+)+$")) {
+    JOptionPane.showMessageDialog(this, "El correo no es válido.",
+            "Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+for (String[] u : usuarios) {
+    if (u[1].equalsIgnoreCase(c)) {
+        JOptionPane.showMessageDialog(this, "Ese correo ya está registrado.",
+                "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+}
+
+usuarios.add(new String[]{n, c, p});
+JOptionPane.showMessageDialog(this, "¡Registro exitoso! Ya puedes iniciar sesión.");
+txtCorreo.setText(c);
+txtContrasena.requestFocus();
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+      String correo = txtCorreo.getText().trim();
+String contrasena = new String(txtContrasena.getPassword());
+
+if (correo.isEmpty() || contrasena.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Completa correo y contraseña.",
+            "Campos vacíos", JOptionPane.WARNING_MESSAGE);
+    return;
+}
+
+boolean encontrado = false;
+String nombre = "";
+
+for (String[] u : usuarios) {
+    if (u[1].equalsIgnoreCase(correo) && u[2].equals(contrasena)) {
+        encontrado = true;
+        nombre = u[0];
+        break;
+    }
+}
+
+if (encontrado) {
+    JOptionPane.showMessageDialog(this, "¡Bienvenido, " + nombre + "!");
+    ViewMenuPrincipal menu = new ViewMenuPrincipal();
+    menu.setVisible(true);
+    this.dispose();
+} else {
+    JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos.",
+            "Error de acceso", JOptionPane.ERROR_MESSAGE);
+    txtContrasena.setText("");
+    txtContrasena.requestFocus();
+}
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,14 +260,14 @@ public class ViewLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnIngresar;
+    private javax.swing.JButton btnRegistrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField txtContrasena;
+    private javax.swing.JTextField txtCorreo;
     // End of variables declaration//GEN-END:variables
 }
