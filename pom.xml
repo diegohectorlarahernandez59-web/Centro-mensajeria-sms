@@ -14,9 +14,10 @@
     </repositories>
     <dependencies>
         <dependency>
-            <groupId>unknown.binary</groupId>
-            <artifactId>AbsoluteLayout</artifactId>
-            <version>SNAPSHOT</version>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.7.2</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
     <properties>
@@ -24,17 +25,4 @@
         <maven.compiler.release>21</maven.compiler.release>
         <exec.mainClass>com.mycompany.centro.mensajeris.CentroMensajeris</exec.mainClass>
     </properties>
-    
-    <dependencies>
-        <dependency>
-            <groupId>com.formdev</groupId>
-            <artifactId>flatlaf</artifactId>
-            <version>3.4.1</version>
-        </dependency>
-        <dependency>
-    <groupId>com.formdev</groupId>
-    <artifactId>flatlaf-extras</artifactId>
-    <version>3.4.1</version>
-        </dependency>
-    </dependencies>
 </project>
